@@ -38,6 +38,60 @@
             background-size: 60px 60px;
             background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
         }
+
+        .card-stage {
+            perspective: 1600px;
+        }
+        .card-spin {
+            transform-style: preserve-3d;
+            animation: spin-card 14s linear infinite;
+        }
+        @keyframes spin-card {
+            from { transform: rotateY(0deg); }
+            to   { transform: rotateY(360deg); }
+        }
+
+        .chess-piece {
+            position: absolute;
+            font-family: 'Georgia', serif;
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            animation: piece-drift 10s ease-in-out infinite;
+        }
+        .chess-piece::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 70%;
+            height: 12px;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%);
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+        .piece-gold {
+            background: linear-gradient(180deg, #F7E7B8 0%, #D9B776 30%, #A9803F 65%, #7A5B28 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 3px 2px rgba(60, 40, 10, 0.5)) drop-shadow(0 8px 10px rgba(0,0,0,0.35));
+        }
+        .piece-dark {
+            background: linear-gradient(180deg, #5c5652 0%, #26211c 35%, #0c0a08 75%, #000000 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 3px 2px rgba(0,0,0,0.6)) drop-shadow(0 8px 10px rgba(0,0,0,0.45));
+        }
+        @keyframes piece-drift {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1.5deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .card-spin, .chess-piece { animation: none !important; }
+        }
     </style>
 </head>
 <body class="bg-creamBg text-richBrown font-sans antialiased selection:bg-cherryRed selection:text-creamBg">
@@ -62,32 +116,32 @@
                     <span>The Ace Up Your Sleeve</span>
                 </div>
                 <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] text-richBrown">
-                    Playing the hand of <span class="italic font-serif text-cherryRed">elegance & strategy.</span>
+                    Every detail is a <span class="italic font-serif text-cherryRed">calculated chess move.</span>
                 </h1>
                 <p class="font-serif text-xl md:text-2xl text-richBrown/80 font-light leading-relaxed max-w-xl">
-                    Luxury positioning is an art of contrast. Like a winning card or a calculated chess move, we engineer brand narratives that capture tension, sensuality, and market dominance.
+                    Brand perception isn't a gamble. Through deliberate strategy, I help brands play their best cards by diving deep into market research and consumer psychology to build identities that are remembered.
                 </p>
             </div>
 
-            <div class="lg:col-span-5 flex justify-center">
-                <div class="w-full max-w-sm bg-white p-6 rounded-2xl shadow-2xl border border-richBrown/10 transform rotate-1 hover:rotate-0 transition-all duration-500 relative group cursor-pointer">
-                    <div class="border-2 border-cherryRed/20 p-6 rounded-xl flex flex-col justify-between min-h-[420px] bg-[#FAF8F5]">
+            <div class="lg:col-span-5 flex justify-center card-stage">
+                <div class="w-full max-w-sm bg-white p-6 rounded-md shadow-2xl border border-richBrown/20 transition-all duration-500 relative group cursor-pointer card-spin">
+                    <div class="border-2 border-richBrown/30 p-6 rounded-sm flex flex-col justify-between min-h-[420px] bg-[#FAF8F5]">
                         <div class="flex justify-between items-center text-cherryRed font-display text-2xl">
                             <span>A</span>
-                            <span class="text-xl">♥</span>
+                            <span class="text-xl">♣</span>
                         </div>
                         
                         <div class="my-6 text-center space-y-3">
-                            <div class="w-24 h-24 mx-auto rounded-full bg-softSand border border-goldAccent/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500">
+                            <div class="w-24 h-24 mx-auto rounded-sm bg-softSand border border-goldAccent/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500">
                                 <span class="text-4xl text-cherryRed font-serif">♔</span>
                             </div>
                             <h3 class="font-display text-2xl text-richBrown pt-2">Strategy as Fine Art</h3>
-                            <p class="text-xs text-richBrown/60 font-serif italic">Two sides, endless sensuality & precision.</p>
+                            <p class="text-xs text-richBrown/60 font-serif italic">Two sides, endless authority & precision.</p>
                         </div>
 
                         <div class="flex justify-between items-center text-cherryRed font-display text-2xl rotate-180">
                             <span>A</span>
-                            <span class="text-xl">♥</span>
+                            <span class="text-xl">♣</span>
                         </div>
                     </div>
                 </div>
@@ -100,8 +154,17 @@
         </div>
     </section>
 
-    <section id="concept" class="py-24 bg-checkerboard border-y border-richBrown/10">
-        <div class="max-w-5xl mx-auto px-6 text-center bg-creamBg/95 p-12 md:p-16 border border-richBrown/10 rounded-3xl shadow-xl">
+    <section id="concept" class="relative py-24 bg-checkerboard border-y border-richBrown/10 overflow-hidden">
+        <span class="chess-piece piece-gold text-6xl md:text-7xl" style="top: 6%; left: 5%; animation-delay: 0s;">♞</span>
+        <span class="chess-piece piece-dark text-5xl md:text-6xl" style="top: 10%; right: 7%; animation-delay: 1.2s;">♟</span>
+        <span class="chess-piece piece-gold text-5xl md:text-6xl" style="bottom: 10%; left: 9%; animation-delay: 2.4s;">♜</span>
+        <span class="chess-piece piece-dark text-6xl md:text-7xl" style="bottom: 8%; right: 5%; animation-delay: 0.6s;">♘</span>
+        <span class="chess-piece piece-gold text-4xl md:text-5xl" style="top: 40%; left: 2%; animation-delay: 3s;">♗</span>
+        <span class="chess-piece piece-dark text-4xl md:text-5xl" style="top: 44%; right: 3%; animation-delay: 1.8s;">♛</span>
+        <span class="chess-piece piece-gold text-5xl md:text-6xl" style="top: 4%; left: 32%; animation-delay: 2s;">♚</span>
+        <span class="chess-piece piece-dark text-5xl md:text-6xl" style="bottom: 6%; right: 30%; animation-delay: 0.9s;">♖</span>
+
+        <div class="relative max-w-5xl mx-auto px-6 text-center bg-creamBg/95 p-12 md:p-16 border border-richBrown/10 rounded-3xl shadow-xl">
             <span class="text-xs tracking-[0.3em] uppercase text-cherryRed block mb-4">The Philosophy</span>
             <h2 class="font-display text-4xl md:text-6xl text-richBrown mb-6">Where Contrast Comes Alive.</h2>
             <p class="font-serif text-xl md:text-2xl text-richBrown/80 font-light max-w-2xl mx-auto leading-relaxed mb-8">
@@ -117,7 +180,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 border-b border-richBrown/10 pb-8">
             <div>
                 <span class="text-xs tracking-[0.3em] uppercase text-cherryRed block mb-2">Portfolio</span>
-                <h2 class="font-display text-4xl md:text-6xl text-richBrown">Selected Moves</h2>
+                <h2 class="font-display text-4xl md:text-6xl text-richBrown">Selected Cases</h2>
             </div>
             <span class="text-xs tracking-widest uppercase text-richBrown/60 mt-4 md:mt-0">Curated Work (2024–2026)</span>
         </div>
@@ -170,14 +233,14 @@
             <div class="space-y-6 max-w-2xl">
                 <span class="text-xs tracking-[0.3em] uppercase text-goldAccent">Endgame</span>
                 <h2 class="font-display text-4xl sm:text-6xl leading-tight">
-                    All in for elegance. <br><span class="italic font-serif text-goldAccent">Let's connect.</span>
+                    Ready to make your move? <br><span class="italic font-serif text-goldAccent">Let's connect.</span>
                 </h2>
-                <a href="mailto:hello@electramouzakiti.com" class="inline-block font-serif text-2xl md:text-3xl text-creamBg hover:text-goldAccent underline decoration-1 underline-offset-8 transition-colors">
+                <a href="mailto:electramouzakitiss@gmail.com" class="inline-block font-serif text-2xl md:text-3xl text-creamBg hover:text-goldAccent underline decoration-1 underline-offset-8 transition-colors">
                     electramouzakitiss@gmail.com
                 </a>
             </div>
             <div class="flex flex-col space-y-4 text-xs tracking-widest uppercase text-creamBg/60">
-                <a href="https://linkedin.com" target="_blank" class="hover:text-goldAccent transition-colors">LinkedIn Profile</a>
+                <a href="https://www.linkedin.com/in/electra-mouzakiti-692766223/" target="_blank" rel="noopener" class="hover:text-goldAccent transition-colors">LinkedIn Profile</a>
                 <a href="#" class="hover:text-goldAccent transition-colors">Strategic Resume (PDF)</a>
                 <p class="pt-8 text-[10px] text-creamBg/40">&copy; 2026 Electra Mouzakiti. All rights reserved.</p>
             </div>
