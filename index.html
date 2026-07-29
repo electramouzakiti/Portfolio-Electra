@@ -1,251 +1,707 @@
 <!DOCTYPE html>
-<html lang="el" class="scroll-smooth bg-[#F9F6F0] text-[#1C1815]">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electra Mouzakiti — Strategic Brand Storytelling</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Electra Mouzakiti | Brand Strategy & Communication</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Italiana&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        creamBg: '#F9F6F0',
-                        cherryRed: '#9E1B22',
-                        richBrown: '#2C1D11',
-                        goldAccent: '#C8A364',
-                        softSand: '#EFEBE4'
-                    },
-                    fontFamily: {
-                        display: ['Italiana', 'serif'],
-                        serif: ['Cormorant Garamond', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Courier+Prime:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        .bg-checkerboard {
-            background-image: 
-                linear-gradient(45deg, #EFEBE4 25%, transparent 25%), 
-                linear-gradient(-45deg, #EFEBE4 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, #EFEBE4 75%), 
-                linear-gradient(-45deg, transparent 75%, #EFEBE4 75%);
-            background-size: 60px 60px;
-            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+        :root {
+            /* Exact moodboard hex codes */
+            --bg: #ffecda;            /* warm off-white */
+            --bg-card: #fffaf0;       /* slightly yellowed paper */
+            --ink: #1e151c;           /* deep espresso / black */
+            --ink-soft: #6e6066;      /* muted tint of ink, for secondary copy */
+            --pink: #c98696;          /* muted dusty pink */
+            --ochre: #bb8636;         /* warm ochre / brownish-gold */
+            --earthy: #59382c;        /* warm earthy brown */
+
+            --font-display: 'Playfair Display', serif;   /* editorial headers */
+            --font-label: 'Josefin Sans', sans-serif;      /* tracked CONTENTS-style labels */
+            --font-body: 'Courier Prime', monospace;       /* typewriter body copy */
+            --font-hand: 'Caveat', cursive;                /* margin notes */
         }
 
-        .card-stage {
-            perspective: 1600px;
-        }
-        .card-spin {
-            transform-style: preserve-3d;
-            animation: spin-card 14s linear infinite;
-        }
-        @keyframes spin-card {
-            from { transform: rotateY(0deg); }
-            to   { transform: rotateY(360deg); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            padding: 2.5rem 1.5rem;
+            max-width: 1140px;
+            margin: 0 auto;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .chess-piece {
-            position: absolute;
-            font-family: 'Georgia', serif;
-            line-height: 1;
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
             pointer-events: none;
-            user-select: none;
-            animation: piece-drift 10s ease-in-out infinite;
+            opacity: 0.05;
+            background-image: radial-gradient(circle at 1px 1px, var(--ink) 1px, transparent 0);
+            background-size: 3px 3px;
         }
-        .chess-piece::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: -6px;
-            width: 70%;
-            height: 12px;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%);
-            transform: translateX(-50%);
-            z-index: -1;
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--earthy); outline-offset: 3px; }
+        .relative { position: relative; }
+
+        /* reusable "lace frame" — scalloped edge peeking above a paper card */
+        .lace-top { position: relative; }
+        .lace-top::before {
+            content: '';
+            position: absolute; top: -6px; left: 6px; right: 6px; height: 10px;
+            background-image: radial-gradient(circle at 8px 10px, transparent 7px, var(--pink) 7.3px 8px, transparent 8.4px);
+            background-size: 16px 16px;
+            background-position: center top;
+            opacity: 0.75;
+            pointer-events: none;
         }
-        .piece-gold {
-            background: linear-gradient(180deg, #F7E7B8 0%, #D9B776 30%, #A9803F 65%, #7A5B28 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            filter: drop-shadow(0 3px 2px rgba(60, 40, 10, 0.5)) drop-shadow(0 8px 10px rgba(0,0,0,0.35));
+
+        /* washi-tape style divider, used instead of plain hairlines */
+        .tape-divider {
+            height: 10px;
+            background-image: repeating-linear-gradient(-45deg, rgba(187,134,54,0.4) 0 8px, rgba(201,134,150,0.35) 8px 16px);
+            opacity: 0.8;
         }
-        .piece-dark {
-            background: linear-gradient(180deg, #5c5652 0%, #26211c 35%, #0c0a08 75%, #000000 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            filter: drop-shadow(0 3px 2px rgba(0,0,0,0.6)) drop-shadow(0 8px 10px rgba(0,0,0,0.45));
+
+        /* ---------- Header ---------- */
+        header {
+            display: flex; justify-content: space-between; align-items: baseline;
+            padding-bottom: 1.5rem; margin-bottom: 1.5rem;
         }
-        @keyframes piece-drift {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(1.5deg); }
+
+        .logo {
+            font-family: var(--font-display); font-weight: 700; font-size: 1.5rem;
+            letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink);
         }
+
+        nav a {
+            color: var(--ink); text-decoration: none; font-family: var(--font-label);
+            font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+            margin-left: 1.75rem; padding-bottom: 2px; border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        nav a:hover { border-bottom-color: var(--earthy); color: var(--earthy); }
+
+        .tape-divider.header-tape { margin-bottom: 4.5rem; }
+
+        /* ---------- Contents strip ---------- */
+        .contents-bar {
+            display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem;
+            padding-bottom: 3rem; margin-bottom: 6rem;
+        }
+
+        .contents-head {
+            font-family: var(--font-display); font-weight: 700; font-size: 1.3rem;
+            letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
+            margin-bottom: 1.5rem;
+        }
+
+        .contents-list { list-style: none; }
+        .contents-list li { display: flex; align-items: baseline; gap: 1rem; padding: 0.65rem 0; border-bottom: 1px dashed rgba(30,21,28,0.2); }
+        .contents-list .num { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--earthy); font-size: 1.05rem; width: 1.8rem; }
+        .contents-list a { font-family: var(--font-body); color: var(--ink); text-decoration: none; font-size: 0.95rem; }
+        .contents-list a:hover { color: var(--earthy); }
+
+        .contents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; align-content: start; margin-top: 1.9rem; }
+        .contents-thumb {
+            aspect-ratio: 1 / 1.05; display: flex; align-items: flex-end; padding: 0.4rem;
+            font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.08em;
+            box-shadow: 0 5px 12px rgba(30,21,28,0.12);
+        }
+        .contents-grid > div:nth-child(2) { transform: rotate(-1.5deg); margin-top: 0.4rem; }
+        .contents-grid > div:nth-child(5) { transform: rotate(1deg); }
+
+        /* ---------- Hero (asymmetric: wide text column, floating card off to the side) ---------- */
+        .hero {
+            position: relative; margin-bottom: 9rem; padding-top: 0.5rem;
+            display: grid; grid-template-columns: 1.5fr 0.9fr; gap: 2rem; align-items: start;
+            perspective: 1000px;
+        }
+
+        .hero-text { position: relative; z-index: 1; }
+
+        .hero-atmosphere {
+            position: absolute; top: -60px; right: 10%; width: 300px; height: 300px;
+            background: radial-gradient(circle at 42% 38%, rgba(89,56,44,0.20), rgba(201,134,150,0.16) 55%, transparent 75%);
+            filter: blur(30px); z-index: 0; pointer-events: none;
+        }
+
+        .draft-tag {
+            display: inline-block; font-family: var(--font-hand); font-size: 1.15rem; color: var(--ink-soft);
+            background: var(--bg-card); border: 1px dashed rgba(30,21,28,0.25); padding: 0.2rem 0.8rem;
+            transform: rotate(-2deg); margin-bottom: 1.1rem; box-shadow: 0 4px 10px rgba(30,21,28,0.08);
+        }
+
+        .eyebrow {
+            display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label);
+            font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--earthy); margin-bottom: 1.4rem;
+        }
+
+        h1 {
+            font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.1rem); font-weight: 700;
+            line-height: 1.18; margin-bottom: 1.75rem; max-width: 620px;
+        }
+        h1 em { font-style: italic; font-weight: 400; color: var(--earthy); display: block; }
+
+        .hero-bio { font-family: var(--font-body); font-size: 1rem; color: var(--ink-soft); max-width: 520px; }
+
+        .margin-thought { position: relative; margin-top: 3rem; max-width: 420px; }
+        .margin-thought::before {
+            content: '\201C'; position: absolute; top: -2.8rem; left: -0.6rem;
+            font-family: var(--font-display); font-style: italic; font-size: 6rem; color: var(--pink);
+            opacity: 0.4; line-height: 1; z-index: -1;
+        }
+        .margin-thought p {
+            font-family: var(--font-hand); font-size: 1.4rem; color: var(--earthy); line-height: 1.3;
+            transform: rotate(-1deg); padding-left: 1rem; border-left: 2px dashed var(--ochre);
+        }
+
+        .hero-visual { position: relative; min-height: 320px; }
+
+        .hero-poloroid {
+            position: absolute; top: 46px; left: 6px; width: 100px; background: #fff;
+            border: 1px solid rgba(30,21,28,0.15); padding: 6px 6px 20px;
+            box-shadow: 0 10px 20px rgba(30,21,28,0.15); transform: rotate(-9deg); z-index: 0;
+        }
+        .hero-poloroid .frame { aspect-ratio: 1/1.1; background: #e6d8c4; }
+
+        .hero-card {
+            position: absolute; right: 4px; top: -6px; width: 172px; height: 230px;
+            background: #fff; border: 1px solid rgba(30,21,28,0.15); border-radius: 6px;
+            box-shadow: 0 18px 36px rgba(30,21,28,0.18); transform-style: preserve-3d;
+            animation: cardSway 11s ease-in-out infinite; z-index: 1;
+        }
+        @keyframes cardSway { 0% { transform: rotateY(-9deg) rotateZ(4deg); } 50% { transform: rotateY(9deg) rotateZ(7deg); } 100% { transform: rotateY(-9deg) rotateZ(4deg); } }
+        .hero-card .corner { position: absolute; font-family: var(--font-display); font-style: italic; font-size: 0.95rem; color: var(--earthy); }
+        .hero-card .tl { top: 10px; left: 12px; }
+        .hero-card .tr { top: 10px; right: 12px; color: var(--ink); }
+        .hero-card .bl { bottom: 10px; left: 12px; color: var(--ink); }
+        .hero-card .br { bottom: 10px; right: 12px; transform: rotate(180deg); }
+        .hero-card-face { position: absolute; inset: 44px 14px; background: var(--bg); border: 1px solid rgba(30,21,28,0.12); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.6rem; padding: 0.6rem; }
+        .hero-card-rule { width: 30px; height: 1px; background: var(--earthy); }
+        .hero-card-title { font-family: var(--font-display); font-size: 0.85rem; font-style: italic; }
+        .hero-card-sub { font-family: var(--font-body); font-size: 0.55rem; color: var(--ink-soft); line-height: 1.3; }
+
+        @media (max-width: 850px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-visual { display: none; }
+        }
+
+        /* ---------- Section titles: bold, tracked, CONTENTS / LIMINAL SOUL aesthetic ---------- */
+        .section-title {
+            font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.12em;
+            text-transform: uppercase; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem;
+        }
+        .section-title .suit { font-family: var(--font-body); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 1rem; color: var(--earthy); }
+        .section-title::after { content: ''; flex: 1; height: 3px; background-image: repeating-linear-gradient(-45deg, rgba(187,134,54,0.4) 0 7px, rgba(201,134,150,0.32) 7px 14px); }
+
+        /* ---------- Methodology: asymmetric column widths + staggered offsets ---------- */
+        .process-grid {
+            display: grid; grid-template-columns: 1.2fr 0.95fr 1.05fr; gap: 2.5rem; margin-bottom: 7rem;
+        }
+        .process-card {
+            background: var(--bg-card); border: 1px dashed rgba(30,21,28,0.22); padding: 2.2rem;
+            position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 6px 16px rgba(30,21,28,0.06);
+        }
+        .process-card:nth-of-type(1) { transform: rotate(-0.8deg); }
+        .process-card:nth-of-type(2) { transform: rotate(0.6deg); margin-top: 2.2rem; }
+        .process-card:nth-of-type(3) { transform: rotate(-0.5deg); }
+        .process-card:hover { transform: translateY(-4px) rotate(0deg); box-shadow: 0 12px 22px rgba(30,21,28,0.12); }
+        .process-card .card-icon { font-size: 1.4rem; color: var(--earthy); margin-bottom: 0.8rem; display: block; }
+        .process-card .step-num { font-family: var(--font-hand); font-size: 1.5rem; color: var(--ochre); margin-bottom: 0.4rem; }
+        .process-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em; margin-bottom: 0.9rem; }
+        .process-card p { font-family: var(--font-body); font-size: 0.88rem; color: var(--ink-soft); }
+        .notebook-doodle { font-family: var(--font-hand); color: var(--earthy); font-size: 1.15rem; margin-top: 1.1rem; display: block; }
+
+        @media (max-width: 850px) { .process-grid { grid-template-columns: 1fr; } .process-card:nth-of-type(2) { margin-top: 0; } }
+
+        /* ---------- From the Notebook: one figure spans wider for asymmetry ---------- */
+        .sketch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-bottom: 7rem; }
+        .sketch-card {
+            background: var(--bg-card); border: 1px dashed rgba(30,21,28,0.22); padding: 1.6rem 1.6rem 1.35rem;
+            position: relative; box-shadow: 0 6px 16px rgba(30,21,28,0.06);
+        }
+        .sketch-card:nth-of-type(1) { transform: rotate(-0.6deg); }
+        .sketch-card:nth-of-type(2) { grid-column: span 2; transform: rotate(0.4deg); }
+        .sketch-card:nth-of-type(3) { transform: rotate(0.5deg); margin-top: 1.6rem; }
+        .sketch-card:nth-of-type(4) { transform: rotate(-0.4deg); }
+        .sketch-card:nth-of-type(5) { grid-column: span 2; transform: rotate(0.3deg); margin-top: 1.6rem; }
+
+        .sketch-fig { font-family: var(--font-label); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.8rem; }
+        .sketch-card svg { width: 100%; height: auto; display: block; }
+        .sketch-note { font-family: var(--font-hand); font-size: 1.2rem; color: var(--earthy); margin-top: 0.8rem; display: block; }
+
+        .diary-card { background-image: repeating-linear-gradient(var(--bg-card) 0 27px, rgba(30,21,28,0.09) 27px 28px); }
+        .diary-entry { font-family: var(--font-hand); font-size: 1.35rem; color: var(--ink); line-height: 1.8rem; }
+        .diary-entry .accent { color: var(--earthy); }
+        .diary-polaroid { float: right; width: 72px; margin: 0 0 0.6rem 0.8rem; background: #fff; border: 1px solid rgba(30,21,28,0.15); padding: 4px 4px 14px; transform: rotate(6deg); box-shadow: 0 6px 14px rgba(30,21,28,0.14); }
+        .diary-polaroid .frame { aspect-ratio: 1/1.05; background: #ecdcc4; }
+
+        @media (max-width: 850px) {
+            .sketch-grid { grid-template-columns: 1fr; }
+            .sketch-card:nth-of-type(2), .sketch-card:nth-of-type(5) { grid-column: span 1; }
+            .sketch-card:nth-of-type(3), .sketch-card:nth-of-type(5) { margin-top: 0; }
+        }
+
+        /* ---------- Selected Work: leatherbound notebook ---------- */
+        .book-section { margin-bottom: 5rem; position: relative; }
+        .book-wrap { perspective: 1800px; }
+
+        .book {
+            position: relative; background: linear-gradient(155deg, #6b4636, var(--earthy));
+            border-radius: 4px 14px 14px 4px; padding: 20px 30px 20px 46px;
+            box-shadow: 0 35px 70px rgba(30,21,28,0.35), inset 0 0 0 1px rgba(255,255,255,0.05);
+        }
+        .book-holes { position: absolute; left: 18px; top: 18px; bottom: 18px; width: 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; z-index: 2; }
+        .book-holes span { width: 10px; height: 10px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 2px 3px rgba(0,0,0,0.45); }
+        .book::after {
+            content: ''; position: absolute; right: -7px; top: 12px; bottom: 12px; width: 12px;
+            background: repeating-linear-gradient(to bottom, #fff8ea 0 2px, #ecd9b8 2px 4px);
+            border-radius: 0 4px 4px 0; box-shadow: 2px 0 6px rgba(30,21,28,0.25);
+        }
+        .book-pages { position: relative; background: var(--bg-card); border-radius: 2px; min-height: 620px; overflow: hidden; }
+        .book-pages::after { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 40px; margin-left: -20px; background: linear-gradient(to right, rgba(30,21,28,0.10), transparent 45%, transparent 55%, rgba(30,21,28,0.10)); pointer-events: none; z-index: 5; }
+
+        .spread { display: none; grid-template-columns: 1fr 1fr; min-height: 620px; }
+        .spread.active { display: grid; animation: pageIn 0.55s ease; }
+        @keyframes pageIn { from { opacity: 0; transform: rotateY(-6deg); } to { opacity: 1; transform: rotateY(0deg); } }
+
+        .page { padding: 2.4rem 2.6rem; position: relative; overflow: hidden; }
+        .page-stamp { font-family: var(--font-label); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.9rem; }
+
+        .torn-note {
+            position: absolute; width: 150px; padding: 0.8rem; background: #f2e2c4;
+            box-shadow: 0 8px 16px rgba(30,21,28,0.12); font-family: var(--font-hand); font-size: 1.05rem; color: var(--ink-soft);
+        }
+
+        .photo-slot { position: relative; background: #fff; border: 1px solid rgba(30,21,28,0.14); max-width: 200px; padding: 10px 10px 24px; box-shadow: 0 10px 22px rgba(30,21,28,0.15); margin-bottom: 1.6rem; z-index: 1; }
+        .photo-slot .frame { aspect-ratio: 4 / 4.6; background: #ecdfc9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; color: var(--ink-soft); }
+        .photo-slot .icon { font-size: 1.5rem; }
+        .photo-slot .caption { display: block; font-family: var(--font-hand); font-size: 1.15rem; color: var(--ink-soft); text-align: center; margin-top: 0.5rem; }
+
+        .tape { position: absolute; width: 60px; height: 20px; opacity: 0.9; z-index: 2; }
+        .tape.gold { background: repeating-linear-gradient(-45deg, rgba(187,134,54,0.55) 0 5px, rgba(187,134,54,0.3) 5px 10px); }
+        .tape.pink { background: repeating-linear-gradient(-45deg, rgba(201,134,150,0.55) 0 5px, rgba(201,134,150,0.3) 5px 10px); }
+
+        .collage-swatches { display: flex; gap: 0.5rem; margin-top: 1rem; }
+        .collage-swatches span { width: 30px; height: 30px; display: block; border-radius: 2px; box-shadow: 0 2px 5px rgba(30,21,28,0.12); }
+        .collage-note { font-family: var(--font-hand); font-size: 1.2rem; color: var(--earthy); display: block; margin-top: 1rem; transform: rotate(-1deg); }
+
+        .page-right .label { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--earthy); display: block; margin-bottom: 0.4rem; }
+        .page-right .year { font-family: var(--font-body); font-size: 0.78rem; color: var(--ink-soft); display: block; margin-bottom: 1.35rem; }
+        .page-right h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; margin-bottom: 0.7rem; }
+        .page-right p { font-family: var(--font-body); font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1.3rem; }
+
+        .book-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 1.6rem; }
+        .book-controls button { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: 1px solid var(--ink); color: var(--ink); padding: 0.6rem 1.1rem; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+        .book-controls button:hover { background: var(--ink); color: var(--bg); }
+        .page-indicator { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+
+        @media (max-width: 850px) {
+            .book-pages { min-height: auto; } .book-pages::after { display: none; }
+            .spread { grid-template-columns: 1fr; min-height: auto; }
+            .page-left { border-bottom: 1px dashed rgba(30,21,28,0.2); }
+            .photo-slot { max-width: 160px; } .torn-note { display: none; }
+        }
+
+        .thought-process-tag {
+            position: relative; background: var(--bg-card); border: 1px dashed rgba(30,21,28,0.25);
+            font-family: var(--font-hand); font-size: 1.15rem; color: var(--earthy);
+            padding: 0.55rem 1rem; display: inline-block; transform: rotate(-0.6deg); box-shadow: 0 3px 8px rgba(30,21,28,0.08);
+        }
+        .thought-process-tag::before {
+            content: ''; position: absolute; top: -8px; left: -6px; width: 30px; height: 14px;
+            background: repeating-linear-gradient(-45deg, rgba(201,134,150,0.6) 0 4px, rgba(201,134,150,0.35) 4px 8px);
+            transform: rotate(-8deg);
+        }
+
+        /* ---------- Palette strip (exact moodboard hex values) ---------- */
+        .palette-strip-wrap { margin-bottom: 6rem; }
+        .palette-strip { display: flex; gap: 0.6rem; margin-top: 0.9rem; }
+        .palette-strip .chip { flex: 1; min-width: 0; height: 64px; border-radius: 2px; display: flex; align-items: flex-end; padding: 0.4rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.02em; }
+        .palette-strip .strip-label { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+
+        /* ---------- Endgame / Contact ---------- */
+        .endgame { width: 100vw; position: relative; left: 50%; margin-left: -50vw; background: #3a2620; color: var(--bg); padding: 3rem max(1.5rem, calc((100vw - 1140px) / 2 + 1.5rem)) 2rem; }
+        .endgame-inner { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; }
+        .endgame .eyebrow { color: var(--ochre); margin-bottom: 1rem; }
+        .endgame-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 3.6vw, 2.7rem); line-height: 1.2; margin-bottom: 1.3rem; }
+        .endgame-title em { font-style: italic; font-weight: 400; color: var(--pink); display: block; }
+        .endgame-email { display: inline-block; font-family: var(--font-body); font-size: 1.15rem; color: var(--bg); text-decoration: none; border-bottom: 1px dashed var(--bg); padding-bottom: 2px; }
+        .endgame-side { display: flex; flex-direction: column; align-items: flex-end; gap: 2.5rem; text-align: right; }
+        .endgame-links a { display: block; font-family: var(--font-label); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg); text-decoration: none; opacity: 0.85; margin-bottom: 0.6rem; }
+        .endgame-links a:hover { opacity: 1; color: var(--ochre); }
+        .endgame-copyright { font-family: var(--font-label); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,236,218,0.5); }
 
         @media (prefers-reduced-motion: reduce) {
-            .card-spin, .chess-piece { animation: none !important; }
+            html { scroll-behavior: auto; }
+            .hero-card { animation: none; }
+            .process-card { transition: none; }
+            .spread.active { animation: none; }
         }
+
+        @media (max-width: 700px) { .contents-bar { grid-template-columns: 1fr; } }
     </style>
 </head>
-<body class="bg-creamBg text-richBrown font-sans antialiased selection:bg-cherryRed selection:text-creamBg">
+<body>
 
-    <nav class="fixed top-0 left-0 w-full bg-creamBg/90 backdrop-blur-md z-50 border-b border-richBrown/10 px-6 md:px-12 py-5 flex justify-between items-center">
-        <a href="#" class="font-display text-xl md:text-2xl tracking-widest uppercase text-richBrown">
-            Electra Mouzakiti
-        </a>
-        <div class="flex space-x-8 text-xs tracking-[0.2em] uppercase text-richBrown/70">
-            <a href="#concept" class="hover:text-cherryRed transition-colors">The Play</a>
-            <a href="#work" class="hover:text-cherryRed transition-colors">Selected Cases</a>
-            <a href="#contact" class="hover:text-cherryRed transition-colors">Connect</a>
+    <header>
+        <div class="logo">Electra Mouzakiti</div>
+        <nav>
+            <a href="#about">Thought Process</a>
+            <a href="#notebook">Notebook</a>
+            <a href="#work">Selected Work</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <div class="tape-divider header-tape"></div>
+
+    <!-- Contents strip -->
+    <section class="contents-bar">
+        <div>
+            <div class="contents-head">Contents</div>
+            <ol class="contents-list">
+                <li><span class="num">I.</span> <a href="#about">Thought Process</a></li>
+                <li><span class="num">II.</span> <a href="#notebook">From the Notebook</a></li>
+                <li><span class="num">III.</span> <a href="#work">Selected Case Studies</a></li>
+                <li><span class="num">IV.</span> <a href="#contact">Contact</a></li>
+            </ol>
         </div>
-    </nav>
-
-    <section class="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-between">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-8">
-            <div class="lg:col-span-7 space-y-6">
-                <div class="inline-flex items-center space-x-2 text-cherryRed text-xs tracking-[0.25em] uppercase font-medium">
-                    <span>♦</span>
-                    <span>The Ace Up Your Sleeve</span>
-                </div>
-                <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] text-richBrown">
-                    Every detail is a <span class="italic font-serif text-cherryRed">calculated chess move.</span>
-                </h1>
-                <p class="font-serif text-xl md:text-2xl text-richBrown/80 font-light leading-relaxed max-w-xl">
-                    Brand perception isn't a gamble. Through deliberate strategy, I help brands play their best cards by diving deep into market research and consumer psychology to build identities that are remembered.
-                </p>
-            </div>
-
-            <div class="lg:col-span-5 flex justify-center card-stage">
-                <div class="w-full max-w-sm bg-white p-6 rounded-md shadow-2xl border border-richBrown/20 transition-all duration-500 relative group cursor-pointer card-spin">
-                    <div class="border-2 border-richBrown/30 p-6 rounded-sm flex flex-col justify-between min-h-[420px] bg-[#FAF8F5]">
-                        <div class="flex justify-between items-center text-cherryRed font-display text-2xl">
-                            <span>A</span>
-                            <span class="text-xl">♣</span>
-                        </div>
-                        
-                        <div class="my-6 text-center space-y-3">
-                            <div class="w-24 h-24 mx-auto rounded-sm bg-softSand border border-goldAccent/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500">
-                                <span class="text-4xl text-cherryRed font-serif">♔</span>
-                            </div>
-                            <h3 class="font-display text-2xl text-richBrown pt-2">Strategy as Fine Art</h3>
-                            <p class="text-xs text-richBrown/60 font-serif italic">Two sides, endless authority & precision.</p>
-                        </div>
-
-                        <div class="flex justify-between items-center text-cherryRed font-display text-2xl rotate-180">
-                            <span>A</span>
-                            <span class="text-xl">♣</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pt-16 flex justify-between items-end border-b border-richBrown/10 pb-6 text-xs text-richBrown/60 uppercase tracking-widest">
-            <span>Brand Strategy & Strategic Communication</span>
-            <span class="text-cherryRed font-serif italic text-sm">Scroll to explore the board &rarr;</span>
+        <div class="contents-grid" aria-hidden="true">
+            <div class="contents-thumb" style="background:#1e151c; color:#ffecda;">01</div>
+            <div class="contents-thumb" style="background:#59382c; color:#ffecda;">02</div>
+            <div class="contents-thumb" style="background:#c98696; color:#1e151c;">03</div>
+            <div class="contents-thumb" style="background:#bb8636; color:#1e151c;">04</div>
+            <div class="contents-thumb" style="background:#fffaf0; color:#1e151c; border:1px solid rgba(30,21,28,.15);">05</div>
+            <div class="contents-thumb" style="background:#ffecda; color:#1e151c; border:1px solid rgba(30,21,28,.15);">06</div>
         </div>
     </section>
 
-    <section id="concept" class="relative py-24 bg-checkerboard border-y border-richBrown/10 overflow-hidden">
-        <span class="chess-piece piece-gold text-6xl md:text-7xl" style="top: 6%; left: 5%; animation-delay: 0s;">♞</span>
-        <span class="chess-piece piece-dark text-5xl md:text-6xl" style="top: 10%; right: 7%; animation-delay: 1.2s;">♟</span>
-        <span class="chess-piece piece-gold text-5xl md:text-6xl" style="bottom: 10%; left: 9%; animation-delay: 2.4s;">♜</span>
-        <span class="chess-piece piece-dark text-6xl md:text-7xl" style="bottom: 8%; right: 5%; animation-delay: 0.6s;">♘</span>
-        <span class="chess-piece piece-gold text-4xl md:text-5xl" style="top: 40%; left: 2%; animation-delay: 3s;">♗</span>
-        <span class="chess-piece piece-dark text-4xl md:text-5xl" style="top: 44%; right: 3%; animation-delay: 1.8s;">♛</span>
-        <span class="chess-piece piece-gold text-5xl md:text-6xl" style="top: 4%; left: 32%; animation-delay: 2s;">♚</span>
-        <span class="chess-piece piece-dark text-5xl md:text-6xl" style="bottom: 6%; right: 30%; animation-delay: 0.9s;">♖</span>
-
-        <div class="relative max-w-5xl mx-auto px-6 text-center bg-creamBg/95 p-12 md:p-16 border border-richBrown/10 rounded-3xl shadow-xl">
-            <span class="text-xs tracking-[0.3em] uppercase text-cherryRed block mb-4">The Philosophy</span>
-            <h2 class="font-display text-4xl md:text-6xl text-richBrown mb-6">Where Contrast Comes Alive.</h2>
-            <p class="font-serif text-xl md:text-2xl text-richBrown/80 font-light max-w-2xl mx-auto leading-relaxed mb-8">
-                True luxury lives in the balance between structure and temptation. We blend rigorous strategic positioning with poetic visual storytelling.
+    <!-- Hero -->
+    <section class="hero" id="about">
+        <div class="hero-text">
+            <span class="draft-tag">draft n&deg;01</span>
+            <span class="eyebrow">&#9830; The Ace Up Your Sleeve</span>
+            <h1>Building narrative-driven brands,<em>one calculated move at a time.</em></h1>
+            <p class="hero-bio">
+                I approach brand strategy like a chessboard: every insight is a deliberate move, every campaign a calculated play toward one undeniable position. Based in Paris &mdash; MSc Branding &amp; Communication.
             </p>
-            <div class="inline-block border-b-2 border-cherryRed pb-1 text-xs tracking-widest uppercase text-richBrown font-medium">
-                Calculated Positioning • Narrative Direction • High-Touch Campaigns
+            <div class="margin-thought">
+                <p>"Great branding isn't a guess &mdash; it's a calculated position."</p>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-atmosphere" aria-hidden="true"></div>
+            <div class="hero-poloroid" aria-hidden="true"><div class="frame"></div></div>
+            <div class="hero-card" aria-hidden="true">
+                <span class="corner tl">A</span>
+                <span class="corner tr">&#9827;</span>
+                <div class="hero-card-face">
+                    <div class="hero-card-rule"></div>
+                    <p class="hero-card-title">Strategy as Fine Art</p>
+                    <p class="hero-card-sub">Two sides, endless authority &amp; precision.</p>
+                </div>
+                <span class="corner bl">&#9827;</span>
+                <span class="corner br">A</span>
             </div>
         </div>
     </section>
 
-    <section id="work" class="py-28 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 border-b border-richBrown/10 pb-8">
-            <div>
-                <span class="text-xs tracking-[0.3em] uppercase text-cherryRed block mb-2">Portfolio</span>
-                <h2 class="font-display text-4xl md:text-6xl text-richBrown">Selected Cases</h2>
-            </div>
-            <span class="text-xs tracking-widest uppercase text-richBrown/60 mt-4 md:mt-0">Curated Work (2024–2026)</span>
-        </div>
+    <!-- Methodology -->
+    <section>
+        <h2 class="section-title"><span class="suit">&#9824;</span> The Methodology</h2>
+        <div class="process-grid">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-            
-            <div class="group cursor-pointer">
-                <div class="aspect-[4/5] bg-softSand overflow-hidden rounded-xl mb-6 relative border border-richBrown/10">
-                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200" 
-                         alt="Luxury Jewelry Strategy" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div class="absolute top-4 right-4 bg-creamBg/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-widest uppercase text-cherryRed border border-richBrown/10">
-                        Move #01
-                    </div>
-                </div>
-                <div class="flex items-center justify-between text-xs text-richBrown/60 uppercase tracking-wider mb-2">
-                    <span>Heritage Branding</span>
-                    <span>2025</span>
-                </div>
-                <h3 class="font-display text-3xl group-hover:text-cherryRed transition-colors mb-2">Aura Fine Jewelry</h3>
-                <p class="font-serif text-lg text-richBrown/70 font-light leading-relaxed">
-                    Elevating brand heritage through tactile storytelling and high-contrast visual positioning.
-                </p>
+            <div class="process-card">
+                <span class="card-icon">&#128269;</span>
+                <div class="step-num">01 / Deconstruction</div>
+                <h3>Questioning the Brief</h3>
+                <p>Strip down the noise. Why does this brand need to exist now? What cultural shift are we responding to?</p>
+                <span class="notebook-doodle">&rarr; endless questions &gt; quick answers</span>
             </div>
 
-            <div class="group cursor-pointer md:mt-12">
-                <div class="aspect-[4/5] bg-softSand overflow-hidden rounded-xl mb-6 relative border border-richBrown/10">
-                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200" 
-                         alt="Communication Strategy" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div class="absolute top-4 right-4 bg-creamBg/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] tracking-widest uppercase text-cherryRed border border-richBrown/10">
-                        Move #02
-                    </div>
-                </div>
-                <div class="flex items-center justify-between text-xs text-richBrown/60 uppercase tracking-wider mb-2">
-                    <span>Strategic Communication</span>
-                    <span>2025</span>
-                </div>
-                <h3 class="font-display text-3xl group-hover:text-cherryRed transition-colors mb-2">Maison Concept</h3>
-                <p class="font-serif text-lg text-richBrown/70 font-light leading-relaxed">
-                    Crafting an all-in-one digital narrative that turned brand perception into global market value.
-                </p>
+            <div class="process-card">
+                <span class="card-icon">&#9826;</span>
+                <div class="step-num">02 / Raw Synthesis</div>
+                <h3>Connecting Invisible Dots</h3>
+                <p>Mapping out consumer behavior, positioning, and emotional drivers into strategic drafts.</p>
+                <span class="notebook-doodle">&#9999;&#65039; (see notebook sketches below)</span>
+            </div>
+
+            <div class="process-card">
+                <span class="card-icon">&#9818;</span>
+                <div class="step-num">03 / Precision</div>
+                <h3>The Final Narrative</h3>
+                <p>Translating chaotic creative exploration into a crisp, undeniable brand positioning and communication strategy.</p>
+                <span class="notebook-doodle">&#10003; clear, sharp &amp; actionable</span>
             </div>
 
         </div>
     </section>
 
-    <footer id="contact" class="py-24 px-6 md:px-12 bg-[#2C1D11] text-[#F9F6F0]">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
-            <div class="space-y-6 max-w-2xl">
-                <span class="text-xs tracking-[0.3em] uppercase text-goldAccent">Endgame</span>
-                <h2 class="font-display text-4xl sm:text-6xl leading-tight">
-                    Ready to make your move? <br><span class="italic font-serif text-goldAccent">Let's connect.</span>
-                </h2>
-                <a href="mailto:electramouzakitiss@gmail.com" class="inline-block font-serif text-2xl md:text-3xl text-creamBg hover:text-goldAccent underline decoration-1 underline-offset-8 transition-colors">
-                    electramouzakitiss@gmail.com
-                </a>
+    <!-- From the Notebook -->
+    <section id="notebook">
+        <h2 class="section-title"><span class="suit">&#9830;</span> From the Notebook</h2>
+        <div class="sketch-grid">
+
+            <div class="sketch-card">
+                <div class="sketch-fig">Fig. 01 &mdash; Positioning</div>
+                <svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="30" y1="15" x2="30" y2="155" stroke="#1e151c" stroke-width="1.2" stroke-dasharray="4 4"/>
+                    <line x1="30" y1="155" x2="220" y2="155" stroke="#1e151c" stroke-width="1.2" stroke-dasharray="4 4"/>
+                    <text x="6" y="20" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">DISRUPTIVE</text>
+                    <text x="6" y="165" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">HERITAGE</text>
+                    <text x="150" y="170" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">MASS</text>
+                    <text x="34" y="170" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">NICHE</text>
+                    <circle cx="70" cy="60" r="4" fill="#59382c"/>
+                    <text x="78" y="63" font-family="Caveat, cursive" font-size="13" fill="#59382c">Brand A</text>
+                    <circle cx="150" cy="110" r="4" fill="#1e151c"/>
+                    <text x="158" y="113" font-family="Caveat, cursive" font-size="13" fill="#1e151c">Competitor</text>
+                    <circle cx="110" cy="90" r="4" fill="#bb8636"/>
+                </svg>
+                <span class="sketch-note">&rarr; where the brand actually lives</span>
             </div>
-            <div class="flex flex-col space-y-4 text-xs tracking-widest uppercase text-creamBg/60">
-                <a href="https://www.linkedin.com/in/electra-mouzakiti-692766223/" target="_blank" rel="noopener" class="hover:text-goldAccent transition-colors">LinkedIn Profile</a>
-                <a href="#" class="hover:text-goldAccent transition-colors">Strategic Resume (PDF)</a>
-                <p class="pt-8 text-[10px] text-creamBg/40">&copy; 2026 Electra Mouzakiti. All rights reserved.</p>
+
+            <div class="sketch-card">
+                <div class="sketch-fig">Fig. 02 &mdash; Brand Core</div>
+                <svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="120" y1="90" x2="45" y2="35" stroke="#e3d4c4" stroke-width="1"/>
+                    <line x1="120" y1="90" x2="195" y2="35" stroke="#e3d4c4" stroke-width="1"/>
+                    <line x1="120" y1="90" x2="45" y2="145" stroke="#e3d4c4" stroke-width="1"/>
+                    <line x1="120" y1="90" x2="195" y2="145" stroke="#e3d4c4" stroke-width="1"/>
+                    <circle cx="120" cy="90" r="26" fill="#fffaf0" stroke="#59382c" stroke-width="1.2"/>
+                    <text x="120" y="94" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="7.5" fill="#1e151c">BRAND CORE</text>
+                    <circle cx="45" cy="35" r="18" fill="#fffaf0" stroke="#1e151c" stroke-width="1"/>
+                    <text x="45" y="38" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6" fill="#1e151c">EMOTION</text>
+                    <circle cx="195" cy="35" r="18" fill="#fffaf0" stroke="#1e151c" stroke-width="1"/>
+                    <text x="195" y="38" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6" fill="#1e151c">CULTURE</text>
+                    <circle cx="45" cy="145" r="18" fill="#fffaf0" stroke="#1e151c" stroke-width="1"/>
+                    <text x="45" y="148" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6" fill="#1e151c">VISUAL</text>
+                    <circle cx="195" cy="145" r="18" fill="#fffaf0" stroke="#1e151c" stroke-width="1"/>
+                    <text x="195" y="148" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="5.5" fill="#1e151c">TONE OF VOICE</text>
+                </svg>
+                <span class="sketch-note">&rarr; four levers, one truth</span>
+            </div>
+
+            <div class="sketch-card">
+                <div class="sketch-fig">Fig. 03 &mdash; The Opening Move</div>
+                <svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <rect x="60" y="20" width="30" height="30" fill="#ecdfc9"/>
+                        <rect x="90" y="20" width="30" height="30" fill="#fffaf0"/>
+                        <rect x="120" y="20" width="30" height="30" fill="#ecdfc9"/>
+                        <rect x="60" y="50" width="30" height="30" fill="#fffaf0"/>
+                        <rect x="90" y="50" width="30" height="30" fill="#ecdfc9"/>
+                        <rect x="120" y="50" width="30" height="30" fill="#fffaf0"/>
+                        <rect x="60" y="80" width="30" height="30" fill="#ecdfc9"/>
+                        <rect x="90" y="80" width="30" height="30" fill="#fffaf0"/>
+                        <rect x="120" y="80" width="30" height="30" fill="#ecdfc9"/>
+                        <rect x="60" y="20" width="90" height="90" fill="none" stroke="#1e151c" stroke-width="1.2"/>
+                    </g>
+                    <text x="70" y="45" font-size="20" fill="#59382c">&#9822;</text>
+                    <path d="M75 40 L135 65" stroke="#59382c" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+                    <defs>
+                        <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <path d="M0,0 L8,4 L0,8 z" fill="#59382c"/>
+                        </marker>
+                    </defs>
+                    <text x="20" y="150" font-family="Josefin Sans, sans-serif" font-size="7" fill="#6e6066">ONE MOVE, MANY OPTIONS</text>
+                </svg>
+                <span class="sketch-note">&rarr; the opening defines the whole game</span>
+            </div>
+
+            <div class="sketch-card">
+                <div class="sketch-fig">Fig. 04 &mdash; Playing the Hand</div>
+                <svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(58,104) rotate(-16)">
+                        <rect x="0" y="0" width="50" height="70" rx="5" fill="#fffaf0" stroke="#1e151c" stroke-width="1.1"/>
+                        <rect x="4" y="4" width="42" height="62" rx="3" fill="none" stroke="#1e151c" stroke-width="0.5" opacity="0.5"/>
+                        <text x="8" y="15" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c">N</text>
+                        <text x="8" y="24" font-size="8" fill="#1e151c">&#9824;</text>
+                        <text x="42" y="61" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c" transform="rotate(180 42 61)">N</text>
+                        <text x="25" y="42" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6.5" fill="#1e151c">NAME</text>
+                    </g>
+                    <g transform="translate(94,96) rotate(-5)">
+                        <rect x="0" y="0" width="50" height="70" rx="5" fill="#fffaf0" stroke="#1e151c" stroke-width="1.1"/>
+                        <rect x="4" y="4" width="42" height="62" rx="3" fill="none" stroke="#1e151c" stroke-width="0.5" opacity="0.5"/>
+                        <text x="8" y="15" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c">V</text>
+                        <text x="8" y="24" font-size="8" fill="#1e151c">&#9829;</text>
+                        <text x="42" y="61" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c" transform="rotate(180 42 61)">V</text>
+                        <text x="25" y="42" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6.5" fill="#1e151c">VOICE</text>
+                    </g>
+                    <g transform="translate(130,90) rotate(4)">
+                        <rect x="0" y="0" width="50" height="70" rx="5" fill="#ecdfc9" stroke="#59382c" stroke-width="1.6"/>
+                        <rect x="4" y="4" width="42" height="62" rx="3" fill="none" stroke="#59382c" stroke-width="0.6" opacity="0.6"/>
+                        <text x="8" y="15" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#59382c">S</text>
+                        <text x="8" y="24" font-size="8" fill="#59382c">&#9830;</text>
+                        <text x="42" y="61" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#59382c" transform="rotate(180 42 61)">S</text>
+                        <text x="25" y="38" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6.5" fill="#59382c">VISUAL</text>
+                        <text x="25" y="47" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6.5" fill="#59382c">SYSTEM</text>
+                    </g>
+                    <g transform="translate(166,96) rotate(13)">
+                        <rect x="0" y="0" width="50" height="70" rx="5" fill="#fffaf0" stroke="#1e151c" stroke-width="1.1"/>
+                        <rect x="4" y="4" width="42" height="62" rx="3" fill="none" stroke="#1e151c" stroke-width="0.5" opacity="0.5"/>
+                        <text x="8" y="15" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c">T</text>
+                        <text x="8" y="24" font-size="8" fill="#1e151c">&#9827;</text>
+                        <text x="42" y="61" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c" transform="rotate(180 42 61)">T</text>
+                        <text x="25" y="42" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6.5" fill="#1e151c">STORY</text>
+                    </g>
+                </svg>
+                <span class="sketch-note">&rarr; which card wins the room</span>
+            </div>
+
+            <div class="sketch-card diary-card">
+                <div class="sketch-fig">Fig. 05 &mdash; Field Notes, 14.03</div>
+                <div class="diary-polaroid"><div class="frame"></div></div>
+                <p class="diary-entry">
+                    Met the founder today. She kept saying <span class="accent">"premium,"</span>
+                    but meant <span class="accent">"expensive."</span><br>
+                    Note to self &mdash; dig for the real reason people should care.
+                </p>
+                <span class="sketch-note">&rarr; the brief is rarely the brief</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Selected Work: leatherbound notebook -->
+    <section id="work" class="book-section">
+        <h2 class="section-title"><span class="suit">&#9827;</span> Selected Case Studies</h2>
+
+        <div class="book-wrap">
+            <div class="book">
+                <div class="book-holes" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="book-pages" id="book">
+
+                    <div class="spread active">
+                        <div class="page page-left">
+                            <div class="page-stamp">N&deg;01 &mdash; 2025&ndash;2026</div>
+                            <div class="torn-note" style="top:20px; right:20px; transform:rotate(6deg);">"depth, not friction" &mdash; keep this line.</div>
+                            <div class="tape gold" style="top:78px; left:36px; transform:rotate(-6deg);"></div>
+                            <div class="photo-slot" style="transform: rotate(-3deg); margin-top:2.5rem;">
+                                <div class="frame"><span class="icon">&#128248;</span></div>
+                                <span class="caption">add project visual</span>
+                            </div>
+                            <div class="collage-swatches">
+                                <span style="background:#1e151c;"></span>
+                                <span style="background:#59382c;"></span>
+                                <span style="background:#c98696;"></span>
+                            </div>
+                            <span class="collage-note">&rarr; heritage, reframed</span>
+                        </div>
+                        <div class="page page-right">
+                            <span class="label">Brand Strategy &amp; Identity</span>
+                            <span class="year">2025 &ndash; 2026</span>
+                            <h3>Project Name 01</h3>
+                            <p>A deep dive into repositioning a luxury heritage entity for a contemporary digital-native audience.</p>
+                            <div class="thought-process-tag">Key insight: "Luxury today is defined by depth, not friction."</div>
+                        </div>
+                    </div>
+
+                    <div class="spread">
+                        <div class="page page-left">
+                            <div class="page-stamp">N&deg;02 &mdash; 2025</div>
+                            <div class="torn-note" style="top:20px; right:20px; transform:rotate(-5deg);">emotion first, always.</div>
+                            <div class="tape pink" style="bottom:56px; right:24px; transform:rotate(8deg);"></div>
+                            <div class="photo-slot" style="transform: rotate(2deg); margin-top:2.5rem;">
+                                <div class="frame"><span class="icon">&#128248;</span></div>
+                                <span class="caption">add project visual</span>
+                            </div>
+                            <div class="collage-swatches">
+                                <span style="background:#59382c;"></span>
+                                <span style="background:#ecdfc9;"></span>
+                                <span style="background:#1e151c;"></span>
+                            </div>
+                            <span class="collage-note">&rarr; culture as campaign</span>
+                        </div>
+                        <div class="page page-right">
+                            <span class="label">Communication Campaign</span>
+                            <span class="year">2025</span>
+                            <h3>Project Name 02</h3>
+                            <p>360&deg; strategic storytelling campaign exploring identity, culture, and spatial communication in Paris.</p>
+                            <div class="thought-process-tag">Key insight: "Emotions drive recall faster than aesthetics."</div>
+                        </div>
+                    </div>
+
+                    <!--
+                      To add a new project: duplicate a whole <div class="spread"> block
+                      above and edit the text, photo caption, colors and swatches.
+                      No JS changes needed.
+                    -->
+
+                </div>
+            </div>
+
+            <div class="book-controls">
+                <button id="prevPage" aria-label="Previous page">&lsaquo; Previous</button>
+                <span class="page-indicator" id="pageIndicator">01 / 02</span>
+                <button id="nextPage" aria-label="Next page">Next &rsaquo;</button>
             </div>
         </div>
-    </footer>
+
+        <div class="palette-strip-wrap">
+            <div class="strip-label">Studio Palette</div>
+            <div class="palette-strip">
+                <div class="chip" style="background:#1e151c; color:#ffecda;">#1E151C</div>
+                <div class="chip" style="background:#59382c; color:#ffecda;">#59382C</div>
+                <div class="chip" style="background:#c98696; color:#1e151c;">#C98696</div>
+                <div class="chip" style="background:#bb8636; color:#1e151c;">#BB8636</div>
+                <div class="chip" style="background:#ffecda; color:#1e151c;">#FFECDA</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tape-divider" aria-hidden="true"></div>
+
+    <!-- Endgame / Contact -->
+    <section class="endgame" id="contact">
+        <div class="endgame-inner">
+            <div class="endgame-main">
+                <span class="eyebrow">ENDGAME</span>
+                <h2 class="endgame-title">Ready to make your move?<em>Let's connect.</em></h2>
+                <a class="endgame-email" href="mailto:electramouzakitiss@gmail.com">electramouzakitiss@gmail.com</a>
+            </div>
+            <div class="endgame-side">
+                <div class="endgame-links">
+                    <a href="https://www.linkedin.com/in/electra-mouzakiti-692766223/" target="_blank">LinkedIn Profile</a>
+                    <a href="#">Strategic Resume (PDF)</a>
+                </div>
+                <div class="endgame-copyright">&copy; 2026 Electra Mouzakiti. All rights reserved.</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        (function () {
+            var spreads = document.querySelectorAll('#book .spread');
+            var indicator = document.getElementById('pageIndicator');
+            var total = spreads.length;
+            var current = 0;
+            function pad(n) { return n < 10 ? '0' + n : '' + n; }
+            function show(idx) {
+                spreads.forEach(function (el, i) { el.classList.toggle('active', i === idx); });
+                if (indicator) { indicator.textContent = pad(idx + 1) + ' / ' + pad(total); }
+            }
+            var prevBtn = document.getElementById('prevPage');
+            var nextBtn = document.getElementById('nextPage');
+            if (prevBtn) prevBtn.addEventListener('click', function () { current = (current - 1 + total) % total; show(current); });
+            if (nextBtn) nextBtn.addEventListener('click', function () { current = (current + 1) % total; show(current); });
+            show(current);
+        })();
+    </script>
 
 </body>
 </html>
