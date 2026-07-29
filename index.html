@@ -255,38 +255,71 @@
             .sketch-card:nth-of-type(3), .sketch-card:nth-of-type(5) { margin-top: 0; }
         }
 
-        /* ---------- Selected Work: leatherbound notebook ---------- */
+        /* ---------- Selected Work: black leather notebook (Moleskine-style), always open ---------- */
         .book-section { margin-bottom: 5rem; position: relative; }
-        .book-wrap { perspective: 1800px; }
+        .book-wrap { display: flex; flex-direction: column; align-items: center; }
 
         .book {
-            position: relative; background: linear-gradient(155deg, #6b4636, var(--earthy));
-            border-radius: 4px 14px 14px 4px; padding: 20px 30px 20px 46px;
-            box-shadow: 0 35px 70px rgba(30,21,28,0.35), inset 0 0 0 1px rgba(255,255,255,0.05);
+            position: relative;
+            width: 100%; max-width: 780px;
+            background:
+                radial-gradient(circle at 50% -10%, #2a221c 0%, #171310 60%),
+                repeating-radial-gradient(circle at 22% 32%, rgba(255,255,255,0.02) 0 2px, transparent 2px 4px);
+            border-radius: 16px;
+            padding: 22px 40px 22px 22px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 0 36px rgba(0,0,0,0.45);
         }
-        .book-holes { position: absolute; left: 18px; top: 18px; bottom: 18px; width: 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; z-index: 2; }
-        .book-holes span { width: 10px; height: 10px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 2px 3px rgba(0,0,0,0.45); }
-        .book::after {
-            content: ''; position: absolute; right: -7px; top: 12px; bottom: 12px; width: 12px;
-            background: repeating-linear-gradient(to bottom, #fff8ea 0 2px, #ecd9b8 2px 4px);
-            border-radius: 0 4px 4px 0; box-shadow: 2px 0 6px rgba(30,21,28,0.25);
+
+        /* cream page-edge, peeking out along the top of the cover */
+        .book::before {
+            content: ''; position: absolute; top: 7px; left: 20px; right: 20px; height: 5px;
+            background: var(--bg); border-radius: 3px; opacity: 0.95;
         }
-        .book-pages { position: relative; background: var(--bg-card); border-radius: 2px; min-height: 620px; overflow: hidden; }
-        .book-pages::after { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 40px; margin-left: -20px; background: linear-gradient(to right, rgba(30,21,28,0.10), transparent 45%, transparent 55%, rgba(30,21,28,0.10)); pointer-events: none; z-index: 5; }
 
-        .spread { display: none; grid-template-columns: 1fr 1fr; min-height: 620px; }
-        .spread.active { display: grid; animation: pageIn 0.55s ease; }
-        @keyframes pageIn { from { opacity: 0; transform: rotateY(-6deg); } to { opacity: 1; transform: rotateY(0deg); } }
+        /* elastic strap, closing the notebook on the right */
+        .elastic-strap {
+            position: absolute; top: -5px; bottom: -5px; right: 26px; width: 9px;
+            background: linear-gradient(to right, #0c0c0c, #303030 45%, #0c0c0c);
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.6);
+        }
+        .strap-tab { position: absolute; left: 50%; width: 20px; height: 14px; background: #171717; border-radius: 6px; transform: translateX(-50%); box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        .strap-tab.top { top: -6px; }
+        .strap-tab.bottom { bottom: -6px; }
 
-        .page { padding: 2.4rem 2.6rem; position: relative; overflow: hidden; }
+        .spread-frame {
+            position: relative; display: flex;
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            min-height: 520px;
+            perspective: 2200px;
+        }
+
+        .page-slot { position: relative; flex: 1 1 0; overflow: hidden; }
+        .gutter { width: 4px; background: linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.04), rgba(0,0,0,0.18)); flex: none; }
+
+        .book-page {
+            position: absolute; inset: 0;
+            background: var(--bg-card);
+            background-image: repeating-linear-gradient(rgba(30,21,28,0.05) 0 1px, transparent 1px 27px);
+            padding: 2.1rem 1.9rem;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .book-page.left-page { transform-origin: right center; }
+        .book-page.right-page { transform-origin: left center; }
+
         .page-stamp { font-family: var(--font-label); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.9rem; }
 
         .torn-note {
-            position: absolute; width: 150px; padding: 0.8rem; background: #f2e2c4;
-            box-shadow: 0 8px 16px rgba(30,21,28,0.12); font-family: var(--font-hand); font-size: 1.05rem; color: var(--ink-soft);
+            position: absolute; width: 130px; padding: 0.7rem; background: #f2e2c4;
+            box-shadow: 0 8px 16px rgba(30,21,28,0.12); font-family: var(--font-hand); font-size: 1rem; color: var(--ink-soft);
+            z-index: 3;
         }
 
-        .photo-slot { position: relative; background: #fff; border: 1px solid rgba(30,21,28,0.14); max-width: 200px; padding: 10px 10px 24px; box-shadow: 0 10px 22px rgba(30,21,28,0.15); margin-bottom: 1.6rem; z-index: 1; }
+        .photo-slot { position: relative; background: #fff; border: 1px solid rgba(30,21,28,0.14); max-width: 200px; padding: 10px 10px 24px; box-shadow: 0 10px 22px rgba(30,21,28,0.15); margin: 2.2rem auto 1.6rem; z-index: 1; }
         .photo-slot .frame { aspect-ratio: 4 / 4.6; background: #ecdfc9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; color: var(--ink-soft); }
         .photo-slot .icon { font-size: 1.5rem; }
         .photo-slot .caption { display: block; font-family: var(--font-hand); font-size: 1.15rem; color: var(--ink-soft); text-align: center; margin-top: 0.5rem; }
@@ -295,25 +328,30 @@
         .tape.gold { background: repeating-linear-gradient(-45deg, rgba(187,134,54,0.55) 0 5px, rgba(187,134,54,0.3) 5px 10px); }
         .tape.pink { background: repeating-linear-gradient(-45deg, rgba(201,134,150,0.55) 0 5px, rgba(201,134,150,0.3) 5px 10px); }
 
-        .collage-swatches { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        .collage-swatches span { width: 30px; height: 30px; display: block; border-radius: 2px; box-shadow: 0 2px 5px rgba(30,21,28,0.12); }
-        .collage-note { font-family: var(--font-hand); font-size: 1.2rem; color: var(--earthy); display: block; margin-top: 1rem; transform: rotate(-1deg); }
+        .collage-swatches { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
+        .collage-swatches span { width: 26px; height: 26px; display: block; border-radius: 2px; box-shadow: 0 2px 5px rgba(30,21,28,0.12); }
+        .collage-note { font-family: var(--font-hand); font-size: 1.15rem; color: var(--earthy); display: block; text-align: center; margin-top: 1rem; transform: rotate(-1deg); }
 
-        .page-right .label { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--earthy); display: block; margin-bottom: 0.4rem; }
-        .page-right .year { font-family: var(--font-body); font-size: 0.78rem; color: var(--ink-soft); display: block; margin-bottom: 1.35rem; }
-        .page-right h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; margin-bottom: 0.7rem; }
-        .page-right p { font-family: var(--font-body); font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1.3rem; }
+        .book-page .label { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--earthy); display: block; margin-bottom: 0.4rem; }
+        .book-page .year { font-family: var(--font-body); font-size: 0.78rem; color: var(--ink-soft); display: block; margin-bottom: 1.35rem; }
+        .book-page h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin-bottom: 0.7rem; }
+        .book-page p { font-family: var(--font-body); font-size: 0.86rem; color: var(--ink-soft); margin-bottom: 1.3rem; }
 
-        .book-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 1.6rem; }
-        .book-controls button { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: 1px solid var(--ink); color: var(--ink); padding: 0.6rem 1.1rem; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
-        .book-controls button:hover { background: var(--ink); color: var(--bg); }
+        .book-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 1.8rem; }
+        .book-controls button {
+            font-family: var(--font-label); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+            background: var(--bg-card); border: 1px solid rgba(30,21,28,0.3); color: var(--ink);
+            padding: 0.55rem 1.4rem; border-radius: 999px; cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 3px 8px rgba(30,21,28,0.1);
+        }
+        .book-controls button:hover { background: var(--ink); color: var(--bg); box-shadow: 0 5px 12px rgba(30,21,28,0.2); }
         .page-indicator { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--ink-soft); }
 
         @media (max-width: 850px) {
-            .book-pages { min-height: auto; } .book-pages::after { display: none; }
-            .spread { grid-template-columns: 1fr; min-height: auto; }
-            .page-left { border-bottom: 1px dashed rgba(30,21,28,0.2); }
-            .photo-slot { max-width: 160px; } .torn-note { display: none; }
+            .torn-note { display: none; }
+            .book { padding: 18px 30px 18px 18px; }
+            .spread-frame { min-height: 440px; }
         }
 
         .thought-process-tag {
@@ -399,7 +437,7 @@
                 I approach brand strategy like a chessboard: every insight is a deliberate move, every campaign a calculated play toward one undeniable position. Based in Paris &mdash; MSc Branding &amp; Communication.
             </p>
             <div class="margin-thought">
-                <p>"Great branding isn't a guess &mdash; it's a calculated position."</p>
+                <p>"Great branding isn't a guess: it's a calculated position."</p>
             </div>
         </div>
 
@@ -462,10 +500,10 @@
                 <svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
                     <line x1="30" y1="15" x2="30" y2="155" stroke="#1e151c" stroke-width="1.2" stroke-dasharray="4 4"/>
                     <line x1="30" y1="155" x2="220" y2="155" stroke="#1e151c" stroke-width="1.2" stroke-dasharray="4 4"/>
-                    <text x="6" y="20" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">DISRUPTIVE</text>
-                    <text x="6" y="165" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">HERITAGE</text>
-                    <text x="150" y="170" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">MASS</text>
-                    <text x="34" y="170" font-family="Josefin Sans, sans-serif" font-size="8" fill="#6e6066">NICHE</text>
+                    <text x="30" y="9" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="7.5" fill="#6e6066">DISRUPTIVE</text>
+                    <text x="12" y="90" text-anchor="middle" transform="rotate(-90 12 90)" font-family="Josefin Sans, sans-serif" font-size="7.5" fill="#6e6066">HERITAGE</text>
+                    <text x="205" y="172" text-anchor="end" font-family="Josefin Sans, sans-serif" font-size="7.5" fill="#6e6066">MASS</text>
+                    <text x="45" y="172" text-anchor="start" font-family="Josefin Sans, sans-serif" font-size="7.5" fill="#6e6066">NICHE</text>
                     <circle cx="70" cy="60" r="4" fill="#59382c"/>
                     <text x="78" y="63" font-family="Caveat, cursive" font-size="13" fill="#59382c">Brand A</text>
                     <circle cx="150" cy="110" r="4" fill="#1e151c"/>
@@ -491,7 +529,8 @@
                     <circle cx="45" cy="145" r="18" fill="#fffaf0" stroke="#1e151c" stroke-width="1"/>
                     <text x="45" y="148" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6" fill="#1e151c">VISUAL</text>
                     <circle cx="195" cy="145" r="18" fill="#fffaf0" stroke="#1e151c" stroke-width="1"/>
-                    <text x="195" y="148" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="5.5" fill="#1e151c">TONE OF VOICE</text>
+                    <text x="195" y="142" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="5.5" fill="#1e151c">TONE OF</text>
+                    <text x="195" y="149" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="5.5" fill="#1e151c">VOICE</text>
                 </svg>
                 <span class="sketch-note">&rarr; four levers, one truth</span>
             </div>
@@ -553,11 +592,11 @@
                     </g>
                     <g transform="translate(166,96) rotate(13)">
                         <rect x="0" y="0" width="50" height="70" rx="5" fill="#fffaf0" stroke="#1e151c" stroke-width="1.1"/>
-                        <rect x="4" y="4" width="42" height="62" rx="3" fill="none" stroke="#1e151c" stroke-width="0.5" opacity="0.5"/>
-                        <text x="8" y="15" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c">T</text>
-                        <text x="8" y="24" font-size="8" fill="#1e151c">&#9827;</text>
-                        <text x="42" y="61" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#1e151c" transform="rotate(180 42 61)">T</text>
-                        <text x="25" y="42" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6.5" fill="#1e151c">STORY</text>
+                        <rect x="5" y="5" width="40" height="60" rx="3" fill="none" stroke="#1e151c" stroke-width="0.5" opacity="0.5"/>
+                        <text x="9" y="14" font-family="Playfair Display, serif" font-style="italic" font-size="8" fill="#1e151c">T</text>
+                        <text x="9" y="22" font-size="7" fill="#1e151c">&#9827;</text>
+                        <text x="41" y="62" font-family="Playfair Display, serif" font-style="italic" font-size="8" fill="#1e151c" transform="rotate(180 41 62)">T</text>
+                        <text x="25" y="42" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="6" fill="#1e151c">STORY</text>
                     </g>
                 </svg>
                 <span class="sketch-note">&rarr; which card wins the room</span>
@@ -569,7 +608,7 @@
                 <p class="diary-entry">
                     Met the founder today. She kept saying <span class="accent">"premium,"</span>
                     but meant <span class="accent">"expensive."</span><br>
-                    Note to self &mdash; dig for the real reason people should care.
+                    Note to self: dig for the real reason people should care.
                 </p>
                 <span class="sketch-note">&rarr; the brief is rarely the brief</span>
             </div>
@@ -577,78 +616,32 @@
         </div>
     </section>
 
-    <!-- Selected Work: leatherbound notebook -->
+    <!-- Selected Work: black leather notebook, always open as a two-page spread -->
     <section id="work" class="book-section">
         <h2 class="section-title"><span class="suit">&#9827;</span> Selected Case Studies</h2>
 
         <div class="book-wrap">
             <div class="book">
-                <div class="book-holes" aria-hidden="true"><span></span><span></span><span></span></div>
-                <div class="book-pages" id="book">
+                <div class="elastic-strap" aria-hidden="true">
+                    <span class="strap-tab top"></span>
+                    <span class="strap-tab bottom"></span>
+                </div>
 
-                    <div class="spread active">
-                        <div class="page page-left">
-                            <div class="page-stamp">N&deg;01 &mdash; 2025&ndash;2026</div>
-                            <div class="torn-note" style="top:20px; right:20px; transform:rotate(6deg);">"depth, not friction" &mdash; keep this line.</div>
-                            <div class="tape gold" style="top:78px; left:36px; transform:rotate(-6deg);"></div>
-                            <div class="photo-slot" style="transform: rotate(-3deg); margin-top:2.5rem;">
-                                <div class="frame"><span class="icon">&#128248;</span></div>
-                                <span class="caption">add project visual</span>
-                            </div>
-                            <div class="collage-swatches">
-                                <span style="background:#1e151c;"></span>
-                                <span style="background:#59382c;"></span>
-                                <span style="background:#c98696;"></span>
-                            </div>
-                            <span class="collage-note">&rarr; heritage, reframed</span>
-                        </div>
-                        <div class="page page-right">
-                            <span class="label">Brand Strategy &amp; Identity</span>
-                            <span class="year">2025 &ndash; 2026</span>
-                            <h3>Project Name 01</h3>
-                            <p>A deep dive into repositioning a luxury heritage entity for a contemporary digital-native audience.</p>
-                            <div class="thought-process-tag">Key insight: "Luxury today is defined by depth, not friction."</div>
-                        </div>
+                <div class="spread-frame">
+                    <div class="page-slot" id="leftSlot">
+                        <div class="book-page left-page" id="leftPage"></div>
                     </div>
-
-                    <div class="spread">
-                        <div class="page page-left">
-                            <div class="page-stamp">N&deg;02 &mdash; 2025</div>
-                            <div class="torn-note" style="top:20px; right:20px; transform:rotate(-5deg);">emotion first, always.</div>
-                            <div class="tape pink" style="bottom:56px; right:24px; transform:rotate(8deg);"></div>
-                            <div class="photo-slot" style="transform: rotate(2deg); margin-top:2.5rem;">
-                                <div class="frame"><span class="icon">&#128248;</span></div>
-                                <span class="caption">add project visual</span>
-                            </div>
-                            <div class="collage-swatches">
-                                <span style="background:#59382c;"></span>
-                                <span style="background:#ecdfc9;"></span>
-                                <span style="background:#1e151c;"></span>
-                            </div>
-                            <span class="collage-note">&rarr; culture as campaign</span>
-                        </div>
-                        <div class="page page-right">
-                            <span class="label">Communication Campaign</span>
-                            <span class="year">2025</span>
-                            <h3>Project Name 02</h3>
-                            <p>360&deg; strategic storytelling campaign exploring identity, culture, and spatial communication in Paris.</p>
-                            <div class="thought-process-tag">Key insight: "Emotions drive recall faster than aesthetics."</div>
-                        </div>
+                    <div class="gutter"></div>
+                    <div class="page-slot" id="rightSlot">
+                        <div class="book-page right-page" id="rightPage"></div>
                     </div>
-
-                    <!--
-                      To add a new project: duplicate a whole <div class="spread"> block
-                      above and edit the text, photo caption, colors and swatches.
-                      No JS changes needed.
-                    -->
-
                 </div>
             </div>
 
             <div class="book-controls">
-                <button id="prevPage" aria-label="Previous page">&lsaquo; Previous</button>
+                <button id="prevPage" aria-label="Previous project">&larr; Previous</button>
                 <span class="page-indicator" id="pageIndicator">01 / 02</span>
-                <button id="nextPage" aria-label="Next page">Next &rsaquo;</button>
+                <button id="nextPage" aria-label="Next project">Next &rarr;</button>
             </div>
         </div>
 
@@ -686,20 +679,120 @@
 
     <script>
         (function () {
-            var spreads = document.querySelectorAll('#book .spread');
-            var indicator = document.getElementById('pageIndicator');
-            var total = spreads.length;
+            var projects = [
+                {
+                    photo: '\
+                        <div class="page-stamp">N&deg;01 &mdash; 2025&ndash;2026</div>\
+                        <div class="torn-note" style="top:14px; right:14px; transform:rotate(6deg);">"depth, not friction" &mdash; keep this line.</div>\
+                        <div class="tape gold" style="top:70px; left:30%; transform:rotate(-6deg);"></div>\
+                        <div class="photo-slot" style="transform: rotate(-3deg);">\
+                            <div class="frame"><span class="icon">&#128248;</span></div>\
+                            <span class="caption">add project visual</span>\
+                        </div>\
+                        <div class="collage-swatches">\
+                            <span style="background:#1e151c;"></span>\
+                            <span style="background:#59382c;"></span>\
+                            <span style="background:#c98696;"></span>\
+                        </div>\
+                        <span class="collage-note">&rarr; heritage, reframed</span>',
+                    details: '\
+                        <span class="label">Brand Strategy &amp; Identity</span>\
+                        <span class="year">2025 &ndash; 2026</span>\
+                        <h3>Project Name 01</h3>\
+                        <p>A deep dive into repositioning a luxury heritage entity for a contemporary digital-native audience.</p>\
+                        <div class="thought-process-tag">Key insight: "Luxury today is defined by depth, not friction."</div>'
+                },
+                {
+                    photo: '\
+                        <div class="page-stamp">N&deg;02 &mdash; 2025</div>\
+                        <div class="torn-note" style="top:14px; right:14px; transform:rotate(-5deg);">emotion first, always.</div>\
+                        <div class="tape pink" style="bottom:50px; right:22%; transform:rotate(8deg);"></div>\
+                        <div class="photo-slot" style="transform: rotate(2deg);">\
+                            <div class="frame"><span class="icon">&#128248;</span></div>\
+                            <span class="caption">add project visual</span>\
+                        </div>\
+                        <div class="collage-swatches">\
+                            <span style="background:#59382c;"></span>\
+                            <span style="background:#ecdfc9;"></span>\
+                            <span style="background:#1e151c;"></span>\
+                        </div>\
+                        <span class="collage-note">&rarr; culture as campaign</span>',
+                    details: '\
+                        <span class="label">Communication Campaign</span>\
+                        <span class="year">2025</span>\
+                        <h3>Project Name 02</h3>\
+                        <p>360&deg; strategic storytelling campaign exploring identity, culture, and spatial communication in Paris.</p>\
+                        <div class="thought-process-tag">Key insight: "Emotions drive recall faster than aesthetics."</div>'
+                }
+                /* To add a project: add another { photo: '...', details: '...' } object above. */
+            ];
+
+            var total = projects.length;
             var current = 0;
+            var animating = false;
+            var DURATION = 700;
+
+            var leftSlot = document.getElementById('leftSlot');
+            var rightSlot = document.getElementById('rightSlot');
+            var leftPage = document.getElementById('leftPage');
+            var rightPage = document.getElementById('rightPage');
+            var indicator = document.getElementById('pageIndicator');
+
             function pad(n) { return n < 10 ? '0' + n : '' + n; }
-            function show(idx) {
-                spreads.forEach(function (el, i) { el.classList.toggle('active', i === idx); });
-                if (indicator) { indicator.textContent = pad(idx + 1) + ' / ' + pad(total); }
+            function updateIndicator() { if (indicator) indicator.textContent = pad(current + 1) + ' / ' + pad(total); }
+
+            function render(index) {
+                leftPage.innerHTML = projects[index].photo;
+                rightPage.innerHTML = projects[index].details;
             }
+
+            /* side: 'right' when Next is pressed (right page turns forward),
+               side: 'left' when Previous is pressed (left page turns back) */
+            function flip(side) {
+                if (animating) return;
+                animating = true;
+
+                var newIndex = side === 'right' ? (current + 1) % total : (current - 1 + total) % total;
+                var slot = side === 'right' ? rightSlot : leftSlot;
+                var liveEl = side === 'right' ? rightPage : leftPage;
+
+                /* snapshot of the current visible page, laid on top as the flipping sheet */
+                var overlay = liveEl.cloneNode(true);
+                overlay.style.position = 'absolute';
+                overlay.style.inset = '0';
+                overlay.style.zIndex = '5';
+                overlay.style.backfaceVisibility = 'hidden';
+                overlay.style.transformOrigin = side === 'right' ? 'left center' : 'right center';
+                overlay.style.transform = 'rotateY(0deg)';
+                overlay.style.transition = 'none';
+                overlay.style.boxShadow = '0 0 24px rgba(0,0,0,0.25)';
+                slot.appendChild(overlay);
+
+                /* update the real content underneath right away (hidden by the overlay) */
+                render(newIndex);
+
+                void overlay.offsetWidth; /* force reflow before animating */
+
+                requestAnimationFrame(function () {
+                    overlay.style.transition = 'transform ' + DURATION + 'ms ease-in';
+                    overlay.style.transform = side === 'right' ? 'rotateY(-160deg)' : 'rotateY(160deg)';
+                });
+
+                setTimeout(function () {
+                    overlay.remove();
+                    current = newIndex;
+                    animating = false;
+                    updateIndicator();
+                }, DURATION + 40);
+            }
+
+            render(current);
+            updateIndicator();
+
             var prevBtn = document.getElementById('prevPage');
             var nextBtn = document.getElementById('nextPage');
-            if (prevBtn) prevBtn.addEventListener('click', function () { current = (current - 1 + total) % total; show(current); });
-            if (nextBtn) nextBtn.addEventListener('click', function () { current = (current + 1) % total; show(current); });
-            show(current);
+            if (prevBtn) prevBtn.addEventListener('click', function () { flip('left'); });
+            if (nextBtn) nextBtn.addEventListener('click', function () { flip('right'); });
         })();
     </script>
 
